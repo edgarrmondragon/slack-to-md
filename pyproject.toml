@@ -4,7 +4,7 @@ requires = [ "hatchling" ]
 
 [project]
 name = "slack-to-md"
-version = "0.1.0"
+version = "0.1.1.dev0"
 description = "Convert Slack workspace exports to Markdown files"
 keywords = [ "converter", "export", "google-docs", "markdown", "slack" ]
 license = "MIT"
