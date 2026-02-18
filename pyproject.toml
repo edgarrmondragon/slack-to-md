@@ -1,0 +1,41 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = [ "hatchling" ]
+
+[project]
+name = "slack-to-md"
+version = "0.1.0"
+description = "Convert Slack workspace exports to Markdown files"
+keywords = [ "converter", "export", "google-docs", "markdown", "slack" ]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.14"
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: End Users/Desktop",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Communications :: Chat",
+  "Topic :: Text Processing :: Markup :: Markdown",
+  "Typing :: Typed",
+]
+dependencies = [ "rich>=14.3" ]
+[[project.authors]]
+name = "Edgar Ramírez Mondragón"
+email = "edgarrm358@gmail.com"
+[project.scripts]
+slack-to-md = "slack_to_md.cli:main"
+[project.urls]
+Homepage = "https://github.com/edgarrmondragon/slack-to-md"
+Issues = "https://github.com/edgarrmondragon/slack-to-md/issues"
+Repository = "https://github.com/edgarrmondragon/slack-to-md"
+
+[dependency-groups]
+dev = [
+  "pytest>=9.0.2",
+]
+
+[tool.hatch]
+[tool.hatch.build]
+targets.wheel.packages = [ "src/slack_to_md" ]
