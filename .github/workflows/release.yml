@@ -2,31 +2,32 @@ name: Release
 
 on:
   push:
-    tags:
-      - "v*"
 
 jobs:
   build:
+    name: Build and Inspect
     runs-on: ubuntu-latest
     outputs:
       name: ${{ steps.baipp.outputs.package_name }}
       version: ${{ steps.baipp.outputs.package_version }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - uses: hynek/build-and-inspect-python-package@b5076c307dc91924a82ad150cdd1533b444d3310 # v2.12.0
+      - uses: hynek/build-and-inspect-python-package@efb823f52190ad02594531168b7a2d5790e66516 # v2.14.0
         id: baipp
 
   publish:
+    name: Publish to PyPI
     needs: build
+    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     environment:
       name: pypi
       url: https://pypi.org/project/{{ needs.build.outputs.name }}/${{ needs.build.outputs.version }}
     permissions:
-      id-token: write
+      id-token: write  # PyPI trusted publishing
     steps:
-      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           name: Packages
           path: dist/
-      - uses: pypa/gh-action-pypi-publish@76f52bc884231f62b54f72e44af3222a6af71f69 # v1.12.4
+      - uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e # v1.13.0
